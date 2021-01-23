@@ -20,5 +20,9 @@
   "bugs": {
     "url": "https://github.com/SylvainMarty/appdrag-library/issues"
   },
-  "homepage": "https://github.com/SylvainMarty/appdrag-library#readme"
+  "homepage": "https://github.com/SylvainMarty/appdrag-library#readme",
+  "dependencies": {
+    "jsonwebtoken": "^8.5.1",
+    "jwks-rsa": "^1.12.2"
+  }
 }
