@@ -1,11 +1,23 @@
+const jwt = require('jsonwebtoken');
+const jwks = require('jwks-rsa');
+
 const DEFAULT_JWT_OPTIONS = {
     algorithms: ['RS256']
+};
+
+const createJwksClient = (endpoint) => {
+    return jwks({
+        cache: true,
+        rateLimit: true,
+        jwksRequestsPerMinute: 5,
+        jwksUri: `${endpoint}.well-known/jwks.json`
+    })
 };
 
 const getToken = (event) => {
     let bearer = event["HEADERS"]["authorization"] || event["HEADERS"]["Authorization"];
     return bearer.replace('Bearer ', '');
-}
+};
 
 const getKey = (jwksClient) => {
     return (header, callback) => {
@@ -14,9 +26,9 @@ const getKey = (jwksClient) => {
             callback(err, signingKey);
         });
     }
-}
+};
 
-const verifyRequest = async (jwt, jwksClient, request, options) => {
+const verifyRequest = async (jwksClient, request, options) => {
     return new Promise((resolve, reject) => {
         try {
             jwt.verify(getToken(request), getKey(jwksClient), options, (err, key) => {
@@ -32,15 +44,16 @@ const verifyRequest = async (jwt, jwksClient, request, options) => {
     });
 };
 
-const verify = async (jwt, jwksClient, request, options) => {
+const verify = async (jwksClient, request, options) => {
     try {
-        await verifyRequest(jwt, jwksClient, request, Object.assign(DEFAULT_JWT_OPTIONS, options);
+        await verifyRequest(jwksClient, request, Object.assign(DEFAULT_JWT_OPTIONS, options));
     } catch (e) {
         return e;
     }
 };
 
 module.exports = {
+    createJwksClient,
     getToken,
     verify,
 };
