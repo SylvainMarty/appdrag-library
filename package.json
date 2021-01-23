@@ -1,0 +1,24 @@
+{
+  "name": "appdrag-library",
+  "version": "1.0.0",
+  "description": "AppDrag utils",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SylvainMarty/appdrag-library.git"
+  },
+  "keywords": [
+    "AppDrag",
+    "utils",
+    "library"
+  ],
+  "author": "Sylvain Marty",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SylvainMarty/appdrag-library/issues"
+  },
+  "homepage": "https://github.com/SylvainMarty/appdrag-library#readme"
+}
