@@ -16,6 +16,9 @@ const createJwksClient = (endpoint) => {
 
 const getToken = (event) => {
     let bearer = event["HEADERS"]["authorization"] || event["HEADERS"]["Authorization"];
+    if (!bearer) {
+        throw new Error('No authorization header found');
+    }
     return bearer.replace('Bearer ', '');
 };
 
