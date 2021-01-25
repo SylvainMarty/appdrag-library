@@ -5,9 +5,13 @@ const DEFAULT_AXIOS_OPTIONS = {
 };
 
 module.exports = {
-    createClient (baseUrl, options) {
-        return axios.create(Object.assign({
-            baseURL: baseUrl
+    createClient (baseUrl, bearerToken, options) {
+        let instance = axios.create(Object.assign({
+            baseURL: baseUrl,
         }, DEFAULT_AXIOS_OPTIONS, options));
+        if (bearerToken) {
+            instance.defaults.headers.common.Authorization = `Bearer ${bearerToken}`;
+        }
+        return instance;
     }
 }
